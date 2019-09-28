@@ -17,6 +17,7 @@ import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.MaterialService;
 import com.weychain.erp.service.SerialNumberService;
 import com.weychain.erp.service.UserService;
+import com.weychain.erp.utils.Constants;
 import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
@@ -782,4 +783,55 @@ public class DepotItemServiceImpl implements com.weychain.erp.service.DepotItemS
         BigDecimal count = depotItemMapperEx.getFinishNumber(mid, linkNumber);
         return count;
     }
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getDepotItem(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getDepotItemList(map);
+    }
+
+    @Override
+    public List<?> getDepotItemList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        String order = QueryUtils.order(map);
+        return select(name, type, remark, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        return countDepotItem(name, type, remark);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertDepotItem(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateDepotItem(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteDepotItem(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteDepotItem(ids);
+    }
+
 }

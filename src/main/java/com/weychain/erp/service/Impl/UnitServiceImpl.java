@@ -15,6 +15,8 @@ import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -28,6 +30,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UnitServiceImpl implements com.weychain.erp.service.UnitService {
@@ -216,4 +219,50 @@ public class UnitServiceImpl implements com.weychain.erp.service.UnitService {
         deleteTotal= batchDeleteUnitByIds(ids);
         return deleteTotal;
     }
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getUnit(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getUnitList(map);
+    }
+
+    @Override
+    public List<?> getUnitList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String order = QueryUtils.order(map);
+        return select(name, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        return countUnit(name);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertUnit(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateUnit(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteUnit(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteUnit(ids);
+    }
+
 }

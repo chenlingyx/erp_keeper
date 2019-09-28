@@ -6,6 +6,8 @@ import com.weychain.erp.mapper.TenantMapper;
 import com.weychain.erp.mapper.TenantMapperEx;
 import com.weychain.erp.domain.DO.Tenant;
 import com.weychain.erp.exception.JshException;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -151,4 +153,51 @@ public class TenantServiceImpl implements com.weychain.erp.service.TenantService
         }
         return tenant;
     }
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getTenant(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getTenantList(map);
+    }
+
+    @Override
+    public List<?> getTenantList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String loginName = StringUtil.getInfo(search, "loginName");
+        return select(loginName, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String loginName = StringUtil.getInfo(search, "loginName");
+        return countTenant(loginName);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertTenant(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateTenant(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteTenant(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteTenant(ids);
+    }
+
+
 }

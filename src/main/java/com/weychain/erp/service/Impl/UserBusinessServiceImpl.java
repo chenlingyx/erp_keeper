@@ -304,4 +304,45 @@ public class UserBusinessServiceImpl implements com.weychain.erp.service.UserBus
         }
         return result;
     }
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getUserBusiness(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getUserBusinessList(map);
+    }
+
+    @Override
+    public List<?> getUserBusinessList(Map<String, String> map)throws Exception {
+        return null;
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        return BusinessConstants.DEFAULT_LIST_NULL_NUMBER;
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception {
+        return insertUserBusiness(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateUserBusiness(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteUserBusiness(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteUserBusiness(ids);
+    }
+
 }

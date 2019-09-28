@@ -14,6 +14,8 @@ import com.weychain.erp.service.DepotItemService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
 import com.weychain.erp.utils.BaseResponseInfo;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -403,4 +405,52 @@ public class MaterialServiceImpl implements com.weychain.erp.service.MaterialSer
         return deleteTotal;
 
     }
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getMaterial(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getMaterialList(map);
+    }
+
+    @Override
+    public List<?> getMaterialList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String model = StringUtil.getInfo(search, "model");
+        String categoryIds = StringUtil.getInfo(search, "categoryIds");
+        String mpList = StringUtil.getInfo(search, "mpList");
+        String order = QueryUtils.order(map);
+        return select(name, model,categoryIds,mpList, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String model = StringUtil.getInfo(search, "model");
+        String categoryIds = StringUtil.getInfo(search, "categoryIds");
+        String mpList = StringUtil.getInfo(search, "mpList");
+        return countMaterial(name, model,categoryIds,mpList);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertMaterial(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateMaterial(beanJson, id);
+    }
+
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteMaterial(ids);
+    }
+
 }

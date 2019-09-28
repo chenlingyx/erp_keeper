@@ -10,6 +10,8 @@ import com.weychain.erp.mapper.MsgMapperEx;
 import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.service.DepotHeadService;
 import com.weychain.erp.service.LogService;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MsgServiceImpl implements com.weychain.erp.service.MsgService {
@@ -239,4 +242,51 @@ public class MsgServiceImpl implements com.weychain.erp.service.MsgService {
                     ExceptionConstants.DATA_WRITE_FAIL_MSG);
         }
     }
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getMsg(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getMsgList(map);
+    }
+
+    @Override
+    public List<?> getMsgList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String order = QueryUtils.order(map);
+        String filter = QueryUtils.filter(map);
+        return select(name, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        return countMsg(name);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertMsg(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateMsg(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteMsg(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteMsg(ids);
+    }
+
 }

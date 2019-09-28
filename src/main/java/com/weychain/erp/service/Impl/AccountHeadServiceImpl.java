@@ -14,6 +14,8 @@ import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.AccountHeadService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -29,6 +31,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AccountHeadServiceImpl  implements AccountHeadService {
@@ -333,4 +336,57 @@ public class AccountHeadServiceImpl  implements AccountHeadService {
         deleteTotal= batchDeleteAccountHeadByIds(ids);
         return deleteTotal;
     }
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getAccountHead(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getAccountHeadList(map);
+    }
+
+    @Override
+    public List<?> getAccountHeadList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String type = StringUtil.getInfo(search, "type");
+        String billNo = StringUtil.getInfo(search, "billNo");
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        String order = QueryUtils.order(map);
+        return select(type, billNo, beginTime, endTime, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String type = StringUtil.getInfo(search, "type");
+        String billNo = StringUtil.getInfo(search, "billNo");
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        return countAccountHead(type, billNo, beginTime, endTime);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertAccountHead(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateAccountHead(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteAccountHead(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteAccountHead(ids);
+    }
+
 }

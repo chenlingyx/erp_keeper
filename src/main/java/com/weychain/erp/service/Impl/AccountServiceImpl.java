@@ -20,6 +20,8 @@ import com.weychain.erp.mapper.*;
 import com.weychain.erp.service.AccountService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 import com.weychain.erp.utils.Tools;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -552,5 +555,53 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     }
 
 
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getAccount(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getAccountList(map);
+    }
+
+    @Override
+    public List<?> getAccountList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String serialNo = StringUtil.getInfo(search, "serialNo");
+        String remark = StringUtil.getInfo(search, "remark");
+        String order = QueryUtils.order(map);
+        return select(name, serialNo, remark, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String serialNo = StringUtil.getInfo(search, "serialNo");
+        String remark = StringUtil.getInfo(search, "remark");
+        return countAccount(name, serialNo, remark);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertAccount(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateAccount(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteAccount(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteAccount(ids);
+    }
 
 }

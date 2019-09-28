@@ -3,23 +3,27 @@ package com.weychain.erp.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.constants.ExceptionConstants;
 import com.weychain.erp.domain.DO.Organization;
 import com.weychain.erp.domain.VO.TreeNode;
 import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.service.OrganizationService;
-import com.weychain.erp.utils.BaseResponseInfo;
+import com.weychain.erp.utils.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.weychain.erp.utils.ResponseJsonUtil.returnJson;
 
 /**
  * create by: cjl
@@ -160,5 +164,107 @@ public class OrganizationController {
                     ExceptionConstants.ORGANIZATION_DELETE_FAILED_MSG);
         }
         return result;
+    }
+
+
+
+    @GetMapping(value = "/info")
+    public String getList(@RequestParam("id") Long id,
+                          HttpServletRequest request) throws Exception {
+        Object obj = organizationService.selectOne(id);
+        Map<String, Object> objectMap = new HashMap<String, Object>();
+        if(obj != null) {
+            objectMap.put("info", obj);
+            return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
+        } else {
+            return returnJson(objectMap, ErpInfo.ERROR.name, ErpInfo.ERROR.code);
+        }
+    }
+
+    @GetMapping(value = "/list")
+    public String getList(
+            @RequestParam(value = Constants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = Constants.CURRENT_PAGE, required = false) Integer currentPage,
+            @RequestParam(value = Constants.SEARCH, required = false) String search,
+            HttpServletRequest request)throws Exception {
+        Map<String, String> parameterMap = ParamUtils.requestToMap(request);
+        parameterMap.put(Constants.SEARCH, search);
+        PageQueryInfo queryInfo = new PageQueryInfo();
+        Map<String, Object> objectMap = new HashMap<String, Object>();
+        if (pageSize != null && pageSize <= 0) {
+            pageSize = 10;
+        }
+        String offset = ParamUtils.getPageOffset(currentPage, pageSize);
+        if (StringUtil.isNotEmpty(offset)) {
+            parameterMap.put(Constants.OFFSET, offset);
+        }
+        List<?> list = organizationService.select(parameterMap);
+        objectMap.put("page", queryInfo);
+        if (list == null) {
+            queryInfo.setRows(new ArrayList<Object>());
+            queryInfo.setTotal(BusinessConstants.DEFAULT_LIST_NULL_NUMBER);
+            return returnJson(objectMap, "查找不到数据", ErpInfo.OK.code);
+        }
+        queryInfo.setRows(list);
+        queryInfo.setTotal(organizationService.counts(parameterMap));
+        return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
+    }
+
+    @PostMapping(value = "/add", produces = {"application/javascript", "application/json"})
+    public String addResource(@PathVariable("apiName") String apiName,
+                              @RequestParam("info") String beanJson, HttpServletRequest request)throws Exception {
+        Map<String, Object> objectMap = new HashMap<String, Object>();
+        int insert = organizationService.insert( beanJson, request);
+        if(insert > 0) {
+            return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
+        } else {
+            return returnJson(objectMap, ErpInfo.ERROR.name, ErpInfo.ERROR.code);
+        }
+    }
+
+    @PostMapping(value = "/update", produces = {"application/javascript", "application/json"})
+    public String updateResource(@RequestParam("info") String beanJson,
+                                 @RequestParam("id") Long id)throws Exception {
+        Map<String, Object> objectMap = new HashMap<String, Object>();
+        int update = organizationService.update(beanJson, id);
+        if(update > 0) {
+            return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
+        } else {
+            return returnJson(objectMap, ErpInfo.ERROR.name, ErpInfo.ERROR.code);
+        }
+    }
+
+    @PostMapping(value = "/{id}/delete", produces = {"application/javascript", "application/json"})
+    public String deleteResource(@PathVariable Long id)throws Exception {
+        Map<String, Object> objectMap = new HashMap<String, Object>();
+        int delete = organizationService.delete(id);
+        if(delete > 0) {
+            return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
+        } else {
+            return returnJson(objectMap, ErpInfo.ERROR.name, ErpInfo.ERROR.code);
+        }
+    }
+
+    @PostMapping(value = "/batchDelete", produces = {"application/javascript", "application/json"})
+    public String batchDeleteResource(@RequestParam("ids") String ids)throws Exception {
+        Map<String, Object> objectMap = new HashMap<String, Object>();
+        int delete = organizationService.batchDelete( ids);
+        if(delete > 0) {
+            return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
+        } else {
+            return returnJson(objectMap, ErpInfo.ERROR.name, ErpInfo.ERROR.code);
+        }
+    }
+
+    @GetMapping(value = "/checkIsNameExist")
+    public String checkIsNameExist(@RequestParam Long id, @RequestParam(value ="name", required = false) String name)throws Exception {
+        Map<String, Object> objectMap = new HashMap<String, Object>();
+        int exist = organizationService.checkIsNameExist( id, name);
+        if(exist > 0) {
+            objectMap.put("status", true);
+        } else {
+            objectMap.put("status", false);
+        }
+        return returnJson(objectMap, ErpInfo.OK.name, ErpInfo.OK.code);
     }
 }

@@ -14,6 +14,8 @@ import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -27,6 +29,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PersonServiceImpl implements com.weychain.erp.service.PersonService {
@@ -269,4 +272,52 @@ public class PersonServiceImpl implements com.weychain.erp.service.PersonService
         deleteTotal= batchDeletePersonByIds(ids);
         return deleteTotal;
     }
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getPerson(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getPersonList(map);
+    }
+
+    @Override
+    public List<?> getPersonList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String type = StringUtil.getInfo(search, "type");
+        String order = QueryUtils.order(map);
+        return select(name, type, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String type = StringUtil.getInfo(search, "type");
+        return countPerson(name, type);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertPerson(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updatePerson(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deletePerson(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeletePerson(ids);
+    }
+
 }

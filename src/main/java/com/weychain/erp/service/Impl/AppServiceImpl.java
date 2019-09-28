@@ -12,6 +12,8 @@ import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserBusinessService;
 import com.weychain.erp.service.UserService;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AppServiceImpl implements com.weychain.erp.service.AppService {
@@ -265,4 +268,58 @@ public class AppServiceImpl implements com.weychain.erp.service.AppService {
         }
         return list;
     }
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getApp(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getAppList(map);
+    }
+
+    @Override
+    public List<?> getAppList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String type = StringUtil.getInfo(search, "type");
+        String order = QueryUtils.order(map);
+        return select(name, type, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String type = StringUtil.getInfo(search, "type");
+        return countApp(name, type);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertApp(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateApp(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteApp(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteApp(ids);
+    }
+
+    @Override
+    public int checkIsNameExist(Long id, String name)throws Exception {
+        return 0;
+    }
+
 }

@@ -15,6 +15,8 @@ import com.weychain.erp.domain.VO.DepotHeadVo4List;
 import com.weychain.erp.domain.VO.DepotHeadVo4StatementAccount;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.*;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -34,6 +36,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DepotHeadServiceImpl implements com.weychain.erp.service.DepotHeadService {
@@ -662,4 +665,63 @@ public class DepotHeadServiceImpl implements com.weychain.erp.service.DepotHeadS
     public BigDecimal getBuyAndSaleStatistics(String type, String subType, Integer hasSupplier, String beginTime, String endTime) {
         return depotHeadMapperEx.getBuyAndSaleStatistics(type, subType, hasSupplier, beginTime, endTime);
     }
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getDepotHead(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getDepotHeadList(map);
+    }
+
+    @Override
+    public List<?> getDepotHeadList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String type = StringUtil.getInfo(search, "type");
+        String subType = StringUtil.getInfo(search, "subType");
+        String number = StringUtil.getInfo(search, "number");
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        String materialParam = StringUtil.getInfo(search, "materialParam");
+        String depotIds = StringUtil.getInfo(search, "depotIds");
+        return select(type, subType, number, beginTime, endTime, materialParam, depotIds, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String type = StringUtil.getInfo(search, "type");
+        String subType = StringUtil.getInfo(search, "subType");
+        String number = StringUtil.getInfo(search, "number");
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        String materialParam = StringUtil.getInfo(search, "materialParam");
+        String depotIds = StringUtil.getInfo(search, "depotIds");
+        return countDepotHead(type, subType, number, beginTime, endTime, materialParam, depotIds);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertDepotHead(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateDepotHead(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteDepotHead(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteDepotHead(ids);
+    }
+
+
 }

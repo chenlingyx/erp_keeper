@@ -13,6 +13,8 @@ import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.AccountItemService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AccountItemServiceImpl implements AccountItemService {
@@ -279,4 +282,55 @@ public class AccountItemServiceImpl implements AccountItemService {
         }
         return result;
     }
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getAccountItem(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getAccountItemList(map);
+    }
+
+    @Override
+    public List<?> getAccountItemList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        String order = QueryUtils.order(map);
+        return select(name, type, remark, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        return countAccountItem(name, type, remark);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertAccountItem(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateAccountItem(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteAccountItem(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteAccountItem(ids);
+    }
+
 }
