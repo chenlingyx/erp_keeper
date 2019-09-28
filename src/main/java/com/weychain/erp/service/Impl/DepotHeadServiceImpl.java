@@ -1,6 +1,7 @@
 package com.weychain.erp.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.domain.DO.DepotHead;
 import com.weychain.erp.domain.DO.DepotItem;
@@ -39,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DepotHeadServiceImpl implements com.weychain.erp.service.DepotHeadService {
+public class DepotHeadServiceImpl extends ServiceImpl<DepotHeadMapper,DepotHead> implements com.weychain.erp.service.DepotHeadService {
     private Logger logger = LoggerFactory.getLogger(DepotHeadServiceImpl.class);
 
     @Resource

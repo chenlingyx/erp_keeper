@@ -1,7 +1,9 @@
 package com.weychain.erp.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.constants.ExceptionConstants;
 import com.weychain.erp.domain.example.AccountHeadExample;
@@ -18,6 +20,7 @@ import com.weychain.erp.utils.Constants;
 import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
 
+import net.sf.jsqlparser.expression.operators.relational.NotEqualsTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AccountHeadServiceImpl  implements AccountHeadService {
+public class AccountHeadServiceImpl extends ServiceImpl<AccountHeadMapper,AccountHead> implements AccountHeadService {
     private Logger logger = LoggerFactory.getLogger(AccountHeadServiceImpl.class);
 
     @Resource
@@ -64,10 +67,10 @@ public class AccountHeadServiceImpl  implements AccountHeadService {
 
     @Override
     public List<AccountHead> getAccountHead() throws Exception{
-        AccountHeadExample example = new AccountHeadExample();
+//        AccountHeadExample example = new AccountHeadExample();
         List<AccountHead> list=null;
         try{
-            list=accountHeadMapper.selectByExample(example);
+            list=accountHeadMapper.selectList(new QueryWrapper<>());
         }catch(Exception e){
             JshException.readFail(logger, e);
         }
@@ -164,11 +167,13 @@ public class AccountHeadServiceImpl  implements AccountHeadService {
 
     @Override
     public int checkIsNameExist(Long id, String name)throws Exception {
-        AccountHeadExample example = new AccountHeadExample();
-        example.createCriteria().andIdNotEqualTo(id).andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+//        AccountHeadExample example = new AccountHeadExample();
+        QueryWrapper<AccountHead> wrapper = new QueryWrapper<>();
+//        example.createCriteria().andIdNotEqualTo(id).andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+        wrapper.lambda().ne(AccountHead::getId,id).ne(AccountHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
         List<AccountHead> list = null;
         try{
-            list = accountHeadMapper.selectByExample(example);
+            list = accountHeadMapper.selectList(wrapper);
         }catch(Exception e){
             JshException.readFail(logger, e);
         }

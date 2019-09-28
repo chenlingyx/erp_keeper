@@ -2,6 +2,7 @@ package com.weychain.erp.service.Impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.domain.DO.AccountItem;
 import com.weychain.erp.domain.DO.User;
@@ -51,7 +52,7 @@ public class AccountItemServiceImpl implements AccountItemService {
     public AccountItem getAccountItem(long id)throws Exception {
         AccountItem result=null;
         try{
-            result=accountItemMapper.selectByPrimaryKey(id);
+            result=accountItemMapper.selectById(id);
         }catch(Exception e){
             JshException.readFail(logger, e);
         }
@@ -59,11 +60,13 @@ public class AccountItemServiceImpl implements AccountItemService {
     }
     @Override
     public List<AccountItem> getAccountItem()throws Exception {
-        AccountItemExample example = new AccountItemExample();
-        example.createCriteria().andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+//        AccountItemExample example = new AccountItemExample();
+        QueryWrapper<AccountItem> wrapper = new QueryWrapper<>();
+        wrapper.lambda().ne(AccountItem::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+//        example.createCriteria().andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
         List<AccountItem> list=null;
         try{
-            list=accountItemMapper.selectByExample(example);
+            list=accountItemMapper.selectList(wrapper);
         }catch(Exception e){
             JshException.readFail(logger, e);
         }
