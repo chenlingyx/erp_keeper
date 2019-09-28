@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.SerialNumberEx;
@@ -13,6 +14,7 @@ import java.util.List;
  * @Author: cjl
  * @Date: 2019/1/21 17:09
  */
+@Mapper
 public interface SerialNumberMapperEx {
     /**
      * 根据条件查询序列号列表

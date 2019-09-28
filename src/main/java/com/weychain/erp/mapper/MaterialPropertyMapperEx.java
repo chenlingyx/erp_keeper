@@ -1,12 +1,13 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.MaterialProperty;
 
 import java.util.Date;
 import java.util.List;
-
+@Mapper
 public interface MaterialPropertyMapperEx {
 
     List<MaterialProperty> selectByConditionMaterialProperty(

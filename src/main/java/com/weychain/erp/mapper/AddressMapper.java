@@ -6,8 +6,9 @@ import com.weychain.erp.domain.DO.Address;
 import java.util.List;
 
 import com.weychain.erp.domain.example.AddressExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+@Mapper
 public interface AddressMapper extends BaseMapper<Address> {
     /**
      * 遍历查询地址列表

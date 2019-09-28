@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.DepotHead;
@@ -18,6 +19,7 @@ import java.util.List;
  * @Author: cjl
  * @Date: 2019/1/25 14:50
  */
+@Mapper
 public interface DepotHeadMapperEx {
     List<DepotHeadVo4List> selectByConditionDepotHead(
             @Param("type") String type,

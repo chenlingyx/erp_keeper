@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.Organization;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @Author: cjl
  * @Date: 2019/3/6 15:51
  */
+@Mapper
 public interface OrganizationMapperEx {
 
 

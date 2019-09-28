@@ -1,12 +1,13 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.App;
 
 import java.util.Date;
 import java.util.List;
-
+@Mapper
 public interface AppMapperEx {
 
     List<App> selectByConditionApp(

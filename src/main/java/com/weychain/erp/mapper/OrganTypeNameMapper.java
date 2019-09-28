@@ -6,8 +6,9 @@ import com.weychain.erp.domain.DO.OrganTypeName;
 import java.util.List;
 
 import com.weychain.erp.domain.example.OrganTypeNameExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+@Mapper
 public interface OrganTypeNameMapper extends BaseMapper<OrganTypeName> {
     /**
      * 查询机构类型名称列表

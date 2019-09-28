@@ -6,8 +6,9 @@ import com.weychain.erp.domain.DO.ERP_Account;
 import java.util.List;
 
 import com.weychain.erp.domain.example.ERP_AccountExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+@Mapper
 public interface ERP_AccountMapper extends BaseMapper<ERP_Account> {
 
     /**

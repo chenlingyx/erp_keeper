@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.VO.AccountVo4InOutList;
@@ -7,7 +8,7 @@ import com.weychain.erp.domain.VO.AccountVo4List;
 
 import java.util.Date;
 import java.util.List;
-
+@Mapper
 public interface AccountMapperEx {
 
     List<AccountVo4List> selectByConditionAccount(

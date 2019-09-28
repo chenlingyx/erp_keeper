@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.core.parser.ISqlParserFilter;
 import com.baomidou.mybatisplus.core.parser.SqlParserHelper;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
 import com.weychain.erp.domain.DO.User;
@@ -34,7 +33,7 @@ public class TenantConfig {
             public Expression getTenantId() {
                 //从session中获取租户id
                 Object tenantId = request.getSession().getAttribute("tenantId");
-                if(tenantId!=null){
+                if (tenantId != null) {
                     return new LongValue(Long.parseLong(tenantId.toString()));
                 } else {
                     return null;
@@ -50,15 +49,15 @@ public class TenantConfig {
             public boolean doTableFilter(String tableName) {
                 //获取开启状态
                 Object tenantId = request.getSession().getAttribute("tenantId");
-                if(tenantId!=null) {
+                if (tenantId != null) {
                     //从session中获取租户id
                     String loginName = null;
                     Object userInfo = request.getSession().getAttribute("user");
-                    if(userInfo != null) {
+                    if (userInfo != null) {
                         User user = (User) userInfo;
                         loginName = user.getLoginame();
                     }
-                    if(("admin").equals(loginName)) {
+                    if (("admin").equals(loginName)) {
                         return true;
                     } else {
                         // 这里可以判断是否过滤表

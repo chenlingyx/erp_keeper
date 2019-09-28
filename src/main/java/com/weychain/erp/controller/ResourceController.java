@@ -2,6 +2,7 @@ package com.weychain.erp.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.weychain.erp.constants.BusinessConstants;
+import com.weychain.erp.service.CommonQueryManagerService;
 import com.weychain.erp.utils.*;
 
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class ResourceController {
     private Logger logger = LoggerFactory.getLogger(ResourceController.class);
 
     @Resource
-    private CommonQueryManager configResourceManager;
+    private CommonQueryManagerService configResourceManager;
 
     @GetMapping(value = "/test/heart")
     public JSONObject exitHeart(HttpServletRequest request)throws Exception {

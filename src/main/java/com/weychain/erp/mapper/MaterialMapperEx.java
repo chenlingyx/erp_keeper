@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.Material;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @Author: cjl
  * @Date: 2019/1/22 14:54
  */
+@Mapper
 public interface MaterialMapperEx {
 
     List<MaterialVo4Unit> selectByConditionMaterial(

@@ -1,11 +1,12 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.VO.LogVo4List;
 
 import java.util.List;
-
+@Mapper
 public interface LogMapperEx {
 
     List<LogVo4List> selectByConditionLog(

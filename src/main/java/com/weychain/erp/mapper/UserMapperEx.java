@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.User;
@@ -8,7 +9,7 @@ import com.weychain.erp.domain.VO.TreeNodeEx;
 
 import java.util.List;
 import java.util.Map;
-
+@Mapper
 public interface UserMapperEx {
 
     List<User> selectByConditionUser(

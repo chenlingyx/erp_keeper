@@ -11,6 +11,7 @@ import com.weychain.erp.mapper.AccountItemMapperEx;
 import com.weychain.erp.domain.DO.*;
 import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.exception.JshException;
+import com.weychain.erp.service.AccountHeadService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
 import com.weychain.erp.utils.StringUtil;
@@ -30,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class AccountHeadServiceImpl  implements  AccountHeadService {
+public class AccountHeadServiceImpl  implements AccountHeadService {
     private Logger logger = LoggerFactory.getLogger(AccountHeadServiceImpl.class);
 
     @Resource

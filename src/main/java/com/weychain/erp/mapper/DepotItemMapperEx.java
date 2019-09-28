@@ -4,6 +4,7 @@ import com.weychain.erp.domain.DO.DepotItem;
 import com.weychain.erp.domain.DO.DepotItemVo4DetailByTypeAndMId;
 import com.weychain.erp.domain.DO.DepotItemVo4Material;
 import com.weychain.erp.domain.DO.DepotItemVo4WithInfoEx;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.VO.DepotItemStockWarningCount;
@@ -18,6 +19,7 @@ import java.util.List;
  * @Author: cjl
  * @Date: 2019/1/24 16:59
  */
+@Mapper
 public interface DepotItemMapperEx {
     List<DepotItem> selectByConditionDepotItem(
             @Param("name") String name,

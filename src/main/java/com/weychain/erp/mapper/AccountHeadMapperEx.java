@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.AccountHead;
@@ -8,7 +9,7 @@ import com.weychain.erp.domain.DO.AccountHeadVo4ListEx;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
+@Mapper
 public interface AccountHeadMapperEx {
 
     List<AccountHeadVo4ListEx> selectByConditionAccountHead(

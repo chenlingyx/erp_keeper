@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.weychain.erp.domain.DO.Depot;
@@ -8,7 +9,7 @@ import com.weychain.erp.domain.DO.DepotEx;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+@Mapper
 public interface DepotMapperEx {
 
     List<Depot> selectByConditionDepot(
