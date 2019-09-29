@@ -1,6 +1,7 @@
 package com.weychain.erp.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.weychain.erp.domain.example.TenantExample;
 import com.weychain.erp.mapper.TenantMapper;
 import com.weychain.erp.mapper.TenantMapperEx;
@@ -145,9 +146,11 @@ public class TenantServiceImpl implements com.weychain.erp.service.TenantService
     @Override
     public Tenant getTenantByTenantId(long tenantId) {
         Tenant tenant = new Tenant();
-        TenantExample example = new TenantExample();
-        example.createCriteria().andTenantIdEqualTo(tenantId);
-        List<Tenant> list = tenantMapper.selectByExample(example);
+        QueryWrapper<Tenant> wrapper = new QueryWrapper<>();
+//        TenantExample example = new TenantExample();
+//        example.createCriteria().andTenantIdEqualTo(tenantId);
+        wrapper.lambda().eq(Tenant::getTenantId,tenantId);
+        List<Tenant> list = tenantMapper.selectList(wrapper);
         if(list.size()>0) {
             tenant = list.get(0);
         }
