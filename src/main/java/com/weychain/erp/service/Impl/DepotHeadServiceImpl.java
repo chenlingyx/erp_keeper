@@ -6,20 +6,19 @@ import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.domain.DO.DepotHead;
 import com.weychain.erp.domain.DO.DepotItem;
 import com.weychain.erp.domain.DO.User;
-import com.weychain.erp.domain.example.DepotHeadExample;
-import com.weychain.erp.mapper.DepotHeadMapper;
-import com.weychain.erp.mapper.DepotHeadMapperEx;
-import com.weychain.erp.mapper.DepotItemMapperEx;
 import com.weychain.erp.domain.VO.DepotHeadVo4InDetail;
 import com.weychain.erp.domain.VO.DepotHeadVo4InOutMCount;
 import com.weychain.erp.domain.VO.DepotHeadVo4List;
 import com.weychain.erp.domain.VO.DepotHeadVo4StatementAccount;
+import com.weychain.erp.domain.example.DepotHeadExample;
 import com.weychain.erp.exception.JshException;
+import com.weychain.erp.mapper.DepotHeadMapper;
+import com.weychain.erp.mapper.DepotHeadMapperEx;
+import com.weychain.erp.mapper.DepotItemMapperEx;
 import com.weychain.erp.service.*;
 import com.weychain.erp.utils.Constants;
 import com.weychain.erp.utils.QueryUtils;
 import com.weychain.erp.utils.StringUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,9 +28,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import static com.weychain.erp.utils.Tools.getCenternTime;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -39,12 +35,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.weychain.erp.utils.Tools.getCenternTime;
+
 @Service
 public class DepotHeadServiceImpl extends ServiceImpl<DepotHeadMapper,DepotHead> implements com.weychain.erp.service.DepotHeadService {
     private Logger logger = LoggerFactory.getLogger(DepotHeadServiceImpl.class);
 
     @Resource
     private DepotHeadMapper depotHeadMapper;
+
     @Resource
     private DepotHeadMapperEx depotHeadMapperEx;
     @Resource
@@ -664,7 +663,8 @@ public class DepotHeadServiceImpl extends ServiceImpl<DepotHeadMapper,DepotHead>
 
     @Override
     public BigDecimal getBuyAndSaleStatistics(String type, String subType, Integer hasSupplier, String beginTime, String endTime) {
-        return depotHeadMapperEx.getBuyAndSaleStatistics(type, subType, hasSupplier, beginTime, endTime);
+        return BigDecimal.valueOf(depotHeadMapperEx.getBuyAndSaleStatistics(type, subType, hasSupplier, beginTime, endTime));
+//        return BigDecimal.valueOf(depotHeadMapperEx.getBuyAndSaleStatistics());
     }
 
 

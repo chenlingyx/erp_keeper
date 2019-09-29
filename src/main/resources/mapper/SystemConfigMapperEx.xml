@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weychain.erp.mapper.SystemConfigMapperEx">
-    <select id="selectByConditionSystemConfig" parameterType="com.weychain.erp.domain.example.SystemConfigExample" resultMap="com.weychain.erp.mapper.SystemConfigMapper.BaseResultMap">
+    <select id="selectByConditionSystemConfig"  resultMap="com.weychain.erp.mapper.SystemConfigMapper.BaseResultMap">
         select *
         FROM jsh_systemconfig
         where 1=1
