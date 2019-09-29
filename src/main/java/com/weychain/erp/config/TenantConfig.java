@@ -7,12 +7,10 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
 import com.weychain.erp.domain.DO.User;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.reflection.MetaObject;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -92,26 +90,7 @@ public class TenantConfig {
         return paginationInterceptor;
     }
 
-    /**
-     * 相当于顶部的：
-     * {@code @MapperScan("com.weychain.erp.datasource.mappers*")}
-     * 这里可以扩展，比如使用配置文件来配置扫描Mapper的路径
-     */
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer() {
-        MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
-        scannerConfigurer.setBasePackage("com.weychain.erp.datasource.mappers*");
-        return scannerConfigurer;
-    }
 
-
-    /**
-     * 性能分析拦截器，不建议生产使用
-     */
-//    @Bean
-//    public PerformanceInterceptor performanceInterceptor(){
-//        return new PerformanceInterceptor();
-//    }
 
 
 }

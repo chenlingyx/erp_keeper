@@ -9,7 +9,7 @@ http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 ">
     <id>bin</id>
 
     <formats>
-        <format>zip</format>
+        <format>jar</format>
     </formats>
 
     <includeBaseDirectory>true</includeBaseDirectory>
