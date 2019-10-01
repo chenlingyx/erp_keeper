@@ -1,11 +1,20 @@
 package com.weychain.erp.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
+<<<<<<< HEAD
+=======
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.domain.example.TenantExample;
 import com.weychain.erp.mapper.TenantMapper;
 import com.weychain.erp.mapper.TenantMapperEx;
 import com.weychain.erp.domain.DO.Tenant;
 import com.weychain.erp.exception.JshException;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -143,12 +152,70 @@ public class TenantServiceImpl implements com.weychain.erp.service.TenantService
     @Override
     public Tenant getTenantByTenantId(long tenantId) {
         Tenant tenant = new Tenant();
+<<<<<<< HEAD
         TenantExample example = new TenantExample();
         example.createCriteria().andTenantIdEqualTo(tenantId);
         List<Tenant> list = tenantMapper.selectByExample(example);
+=======
+        QueryWrapper<Tenant> wrapper = new QueryWrapper<>();
+//        TenantExample example = new TenantExample();
+//        example.createCriteria().andTenantIdEqualTo(tenantId);
+        wrapper.lambda().eq(Tenant::getTenantId,tenantId);
+        List<Tenant> list = tenantMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
         if(list.size()>0) {
             tenant = list.get(0);
         }
         return tenant;
     }
+<<<<<<< HEAD
+=======
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getTenant(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getTenantList(map);
+    }
+
+    @Override
+    public List<?> getTenantList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String loginName = StringUtil.getInfo(search, "loginName");
+        return select(loginName, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String loginName = StringUtil.getInfo(search, "loginName");
+        return countTenant(loginName);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertTenant(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateTenant(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteTenant(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteTenant(ids);
+    }
+
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

@@ -1,13 +1,12 @@
 package com.weychain.erp.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.weychain.erp.domain.DO.DepotHead;
 import com.weychain.erp.domain.VO.DepotHeadVo4InDetail;
 import com.weychain.erp.domain.VO.DepotHeadVo4InOutMCount;
 import com.weychain.erp.domain.VO.DepotHeadVo4List;
 import com.weychain.erp.domain.VO.DepotHeadVo4StatementAccount;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -130,7 +129,7 @@ public interface DepotHeadMapperEx {
 
     List<DepotHead> getDepotHeadListByDepotIds(@Param("depotIds") String[] depotIds);
 
-    BigDecimal getBuyAndSaleStatistics(
+    Double getBuyAndSaleStatistics(
             @Param("type") String type,
             @Param("subType") String subType,
             @Param("hasSupplier") Integer hasSupplier,

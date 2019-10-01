@@ -2,9 +2,17 @@ package com.weychain.erp.service.Impl;
 
 
 import com.alibaba.fastjson.JSONObject;
+<<<<<<< HEAD
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+=======
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.constants.ExceptionConstants;
 import com.weychain.erp.domain.DO.*;
@@ -20,6 +28,11 @@ import com.weychain.erp.mapper.*;
 import com.weychain.erp.service.AccountService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 import com.weychain.erp.utils.Tools;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +49,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 @Service
 @Slf4j
@@ -169,11 +186,19 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteAccount(String ids)throws Exception {
         List<Long> idList = StringUtil.strToLongList(ids);
+<<<<<<< HEAD
         AccountExample example = new AccountExample();
         example.createCriteria().andIdIn(idList);
         int result=0;
         try{
             result = accountMapper.deleteByExample(example);
+=======
+//        AccountExample example = new AccountExample();
+//        example.createCriteria().andIdIn(idList);
+        int result=0;
+        try{
+            result = accountMapper.delete(new QueryWrapper<Account>().lambda().in(Account::getId, idList));
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
         }catch(Exception e){
             JshException.writeFail(log, e);
         }
@@ -182,11 +207,21 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     @Override
     public int checkIsNameExist(Long id, String name)throws Exception {
+<<<<<<< HEAD
         AccountExample example = new AccountExample();
         example.createCriteria().andIdNotEqualTo(id).andNameEqualTo(name).andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
         List<Account> list=null;
         try{
             list = accountMapper.selectByExample(example);
+=======
+//        AccountExample example = new AccountExample();
+        QueryWrapper<Account> wrapper = new QueryWrapper<>();
+//      example.createCriteria().andIdNotEqualTo(id).andNameEqualTo(name).andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+        wrapper.lambda().ne(Account::getId,id).eq(Account::getName,name).ne(Account::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+        List<Account> list=null;
+        try{
+            list = accountMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
         }catch(Exception e){
             JshException.readFail(log, e);
         }
@@ -195,12 +230,23 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     @Override
     public List<Account> findBySelect()throws Exception {
+<<<<<<< HEAD
         AccountExample example = new AccountExample();
         example.createCriteria().andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
         example.setOrderByClause("id desc");
         List<Account> list=null;
         try{
             list = accountMapper.selectByExample(example);
+=======
+//        AccountExample example = new AccountExample();
+        QueryWrapper<Account> wrapper = new QueryWrapper<>();
+//        example.createCriteria().andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+        wrapper.lambda().ne(Account::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED).orderByDesc(Account::getId);
+//        example.setOrderByClause("id desc");
+        List<Account> list=null;
+        try{
+            list = accountMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
         }catch(Exception e){
             JshException.readFail(log, e);
         }
@@ -217,12 +263,18 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public BigDecimal getAccountSum(Long id, String timeStr, String type) throws Exception{
         BigDecimal accountSum = BigDecimal.ZERO;
         try {
+<<<<<<< HEAD
             DepotHeadExample example = new DepotHeadExample();
+=======
+            QueryWrapper<DepotHead> wrapper = new QueryWrapper<>();
+//            DepotHeadExample example = new DepotHeadExample();
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             if (!timeStr.equals("")) {
                 Date bTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 Date eTime = StringUtil.getDateByString(timeStr + "-31 00:00:00", null);
                 Date mTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 if (type.equals("month")) {
+<<<<<<< HEAD
                     example.createCriteria().andAccountidEqualTo(id).andPaytypeNotEqualTo("预付款")
                             .andOpertimeGreaterThanOrEqualTo(bTime).andOpertimeLessThanOrEqualTo(eTime)
                             .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
@@ -237,6 +289,26 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
             List<DepotHead> dataList=null;
             try{
                 dataList = depotHeadMapper.selectByExample(example);
+=======
+//                    example.createCriteria().andAccountidEqualTo(id).andPaytypeNotEqualTo("预付款")
+//                            .andOpertimeGreaterThanOrEqualTo(bTime).andOpertimeLessThanOrEqualTo(eTime)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().eq(DepotHead::getAccountid,id).ne(DepotHead::getPaytype,"预付款").ge(DepotHead::getOpertime,bTime).ne(DepotHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+                } else if (type.equals("date")) {
+//                    example.createCriteria().andAccountidEqualTo(id).andPaytypeNotEqualTo("预付款")
+//                            .andOpertimeLessThanOrEqualTo(mTime).andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().eq(DepotHead::getAccountid,id).ne(DepotHead::getPaytype,"预付款").le(DepotHead::getOpertime,bTime).ne(DepotHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+
+                }
+            } else {
+//                example.createCriteria().andAccountidEqualTo(id).andPaytypeNotEqualTo("预付款")
+//                        .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                wrapper.lambda().eq(DepotHead::getAccountid,id).ne(DepotHead::getPaytype,"预付款").ne(DepotHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+            }
+            List<DepotHead> dataList=null;
+            try{
+                dataList = depotHeadMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             }catch(Exception e){
                 JshException.readFail(log, e);
             }
@@ -263,12 +335,18 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public BigDecimal getAccountSumByHead(Long id, String timeStr, String type) throws Exception{
         BigDecimal accountSum = BigDecimal.ZERO;
         try {
+<<<<<<< HEAD
             AccountHeadExample example = new AccountHeadExample();
+=======
+            QueryWrapper<AccountHead> wrapper = new QueryWrapper<>();
+//            AccountHeadExample example = new AccountHeadExample();
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             if (!timeStr.equals("")) {
                 Date bTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 Date eTime = StringUtil.getDateByString(timeStr + "-31 00:00:00", null);
                 Date mTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 if (type.equals("month")) {
+<<<<<<< HEAD
                     example.createCriteria().andAccountidEqualTo(id)
                             .andBilltimeGreaterThanOrEqualTo(bTime).andBilltimeLessThanOrEqualTo(eTime)
                             .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
@@ -284,6 +362,26 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
             List<AccountHead> dataList=null;
             try{
                 dataList = accountHeadMapper.selectByExample(example);
+=======
+//                    example.createCriteria().andAccountidEqualTo(id)
+//                            .andBilltimeGreaterThanOrEqualTo(bTime).andBilltimeLessThanOrEqualTo(eTime)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().eq(AccountHead::getAccountid,id).ge(AccountHead::getBilltime,bTime).le(AccountHead::getBilltime,eTime).ne(AccountHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+                } else if (type.equals("date")) {
+//                    example.createCriteria().andAccountidEqualTo(id)
+//                            .andBilltimeLessThanOrEqualTo(mTime)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().eq(AccountHead::getAccountid,id).le(AccountHead::getBilltime,mTime).ne(AccountHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+                }
+            } else {
+//                example.createCriteria().andAccountidEqualTo(id)
+//                        .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                wrapper.lambda().eq(AccountHead::getAccountid,id).ne(AccountHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+            }
+            List<AccountHead> dataList=null;
+            try{
+                dataList = accountHeadMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             }catch(Exception e){
                 JshException.readFail(log, e);
             }
@@ -310,22 +408,41 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public BigDecimal getAccountSumByDetail(Long id, String timeStr, String type)throws Exception {
         BigDecimal accountSum =BigDecimal.ZERO ;
         try {
+<<<<<<< HEAD
             AccountHeadExample example = new AccountHeadExample();
+=======
+            QueryWrapper<AccountHead> queryWrapper = new QueryWrapper<>();
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             if (!timeStr.equals("")) {
                 Date bTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 Date eTime = StringUtil.getDateByString(timeStr + "-31 00:00:00", null);
                 Date mTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 if (type.equals("month")) {
+<<<<<<< HEAD
                     example.createCriteria().andBilltimeGreaterThanOrEqualTo(bTime).andBilltimeLessThanOrEqualTo(eTime)
                             .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
                 } else if (type.equals("date")) {
                     example.createCriteria().andBilltimeLessThanOrEqualTo(mTime)
                             .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+=======
+//                    example.createCriteria().andBilltimeGreaterThanOrEqualTo(bTime).andBilltimeLessThanOrEqualTo(eTime)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    queryWrapper.lambda().ge(AccountHead::getBilltime,bTime).le(AccountHead::getBilltime,eTime).ne(AccountHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+
+                } else if (type.equals("date")) {
+//                    example.createCriteria().andBilltimeLessThanOrEqualTo(mTime)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    queryWrapper.lambda().le(AccountHead::getBilltime,mTime).ne(AccountHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
                 }
             }
             List<AccountHead> dataList=null;
             try{
+<<<<<<< HEAD
                 dataList = accountHeadMapper.selectByExample(example);
+=======
+                dataList = accountHeadMapper.selectList(queryWrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             }catch(Exception e){
                 JshException.readFail(log, e);
             }
@@ -337,6 +454,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
                 if (!ids.equals("")) {
                     ids = ids.substring(0, ids.length() - 1);
                 }
+<<<<<<< HEAD
 
                 AccountItemExample exampleAi = new AccountItemExample();
                 if (!ids.equals("")) {
@@ -348,6 +466,21 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
                             .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
                 }
                 List<AccountItem> dataListOne = accountItemMapper.selectByExample(exampleAi);
+=======
+                QueryWrapper<AccountItem> wrapper = new QueryWrapper();
+//                AccountItemExample exampleAi = new AccountItemExample();
+                if (!ids.equals("")) {
+                    List<Long> idList = StringUtil.strToLongList(ids);
+//                    exampleAi.createCriteria().andAccountidEqualTo(id).andHeaderidIn(idList)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().eq(AccountItem::getAccountid,id).in(AccountItem::getHeaderid,idList).ne(AccountItem::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+                } else {
+//                    exampleAi.createCriteria().andAccountidEqualTo(id)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().eq(AccountItem::getAccountid,id).ne(AccountItem::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+                }
+                List<AccountItem> dataListOne = accountItemMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
                 if (dataListOne != null) {
                     for (AccountItem accountItem : dataListOne) {
                         if(accountItem.getEachamount()!=null) {
@@ -374,12 +507,18 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public BigDecimal getManyAccountSum(Long id, String timeStr, String type)throws Exception {
         BigDecimal accountSum = BigDecimal.ZERO;
         try {
+<<<<<<< HEAD
             DepotHeadExample example = new DepotHeadExample();
+=======
+//            tryDepotHeadExample example = new DepotHeadExample();
+            QueryWrapper<DepotHead> wrapper = new QueryWrapper<>();
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             if (!timeStr.equals("")) {
                 Date bTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 Date eTime = StringUtil.getDateByString(timeStr + "-31 00:00:00", null);
                 Date mTime = StringUtil.getDateByString(timeStr + "-01 00:00:00", null);
                 if (type.equals("month")) {
+<<<<<<< HEAD
                     example.createCriteria().andAccountidlistLike("%" +id.toString() + "%")
                             .andOpertimeGreaterThanOrEqualTo(bTime).andOpertimeLessThanOrEqualTo(eTime)
                             .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
@@ -395,6 +534,27 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
             List<DepotHead> dataList=null;
             try{
                 dataList = depotHeadMapper.selectByExample(example);
+=======
+//                    example.createCriteria().andAccountidlistLike("%" +id.toString() + "%")
+//                            .andOpertimeGreaterThanOrEqualTo(bTime).andOpertimeLessThanOrEqualTo(eTime)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().like(DepotHead::getAccountidlist,"%" +id.toString() + "%").ge(DepotHead::getOpertime,bTime)
+                            .le(DepotHead::getOpertime,eTime).ne(DepotHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+                } else if (type.equals("date")) {
+//                    example.createCriteria().andAccountidlistLike("%" +id.toString() + "%")
+//                            .andOpertimeLessThanOrEqualTo(mTime)
+//                            .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                    wrapper.lambda().like(DepotHead::getAccountidlist,"%" +id.toString() + "%").le(DepotHead::getOpertime,eTime).ne(DepotHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+                }
+            } else {
+//                example.createCriteria().andAccountidlistLike("%" +id.toString() + "%")
+//                        .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+                wrapper.lambda().like(DepotHead::getAccountidlist,"%" +id.toString() + "%").ne(DepotHead::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+            }
+            List<DepotHead> dataList=null;
+            try{
+                dataList = depotHeadMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             }catch(Exception e){
                 JshException.readFail(log, e);
             }
@@ -448,11 +608,21 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
         Account account = new Account();
         account.setIsdefault(isDefault);
+<<<<<<< HEAD
         AccountExample example = new AccountExample();
         example.createCriteria().andIdEqualTo(accountId);
         int result=0;
         try{
             result = accountMapper.updateByExampleSelective(account, example);
+=======
+        QueryWrapper< Account> wrapper = new QueryWrapper<>();
+//        AccountExample example = new AccountExample();
+//        example.createCriteria().andIdEqualTo(accountId);
+        wrapper.lambda().eq(Account::getId,accountId);
+        int result=0;
+        try{
+            result = accountMapper.update(account, wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
         }catch(Exception e){
             JshException.writeFail(log, e);
         }
@@ -552,5 +722,56 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     }
 
 
+<<<<<<< HEAD
+=======
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getAccount(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getAccountList(map);
+    }
+
+    @Override
+    public List<?> getAccountList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String serialNo = StringUtil.getInfo(search, "serialNo");
+        String remark = StringUtil.getInfo(search, "remark");
+        String order = QueryUtils.order(map);
+        return select(name, serialNo, remark, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String serialNo = StringUtil.getInfo(search, "serialNo");
+        String remark = StringUtil.getInfo(search, "remark");
+        return countAccount(name, serialNo, remark);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertAccount(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateAccount(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteAccount(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteAccount(ids);
+    }
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 }

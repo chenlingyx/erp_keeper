@@ -10,6 +10,11 @@ import com.weychain.erp.mapper.SystemConfigMapperEx;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -23,6 +28,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 @Service
 public class SystemConfigServiceImpl implements com.weychain.erp.service.SystemConfigService {
@@ -202,4 +211,54 @@ public class SystemConfigServiceImpl implements com.weychain.erp.service.SystemC
         }
         return customerFlag;
     }
+<<<<<<< HEAD
+=======
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getSystemConfig(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getSystemConfigList(map);
+    }
+
+    @Override
+    public List<?> getSystemConfigList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String companyName = StringUtil.getInfo(search, "companyName");
+        String order = QueryUtils.order(map);
+        return select(companyName, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String companyName = StringUtil.getInfo(search, "companyName");
+        return countSystemConfig(companyName);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertSystemConfig(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateSystemConfig(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteSystemConfig(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteSystemConfig(ids);
+    }
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

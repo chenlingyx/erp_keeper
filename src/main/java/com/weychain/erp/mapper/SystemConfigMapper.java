@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+
 import com.weychain.erp.domain.DO.SystemConfig;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,6 +37,7 @@ public interface SystemConfigMapper {
 
 
     int updateByPrimaryKeySelective(SystemConfig record);
+
 
 
     int updateByPrimaryKey(SystemConfig record);

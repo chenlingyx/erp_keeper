@@ -53,7 +53,7 @@
         <result column="BasicLinjieNumber" jdbcType="DECIMAL" property="BasicLinjieNumber" />
     </resultMap>
 
-    <select id="selectByConditionDepotItem" parameterType="com.weychain.erp.domain.example.DepotItemExample" resultMap="com.weychain.erp.mapper.DepotItemMapper.BaseResultMap">
+    <select id="selectByConditionDepotItem" parameterType="com.weychain.erp.domain.DO.DepotItem" resultMap="com.weychain.erp.mapper.DepotItemMapper.BaseResultMap">
         select *
         FROM jsh_depotitem
         where 1=1
@@ -88,7 +88,7 @@
         and ifnull(delete_Flag,'0') !='1'
     </select>
 
-    <select id="findDetailByTypeAndMaterialIdList" parameterType="com.weychain.erp.domain.example.DepotItemExample" resultMap="DetailByTypeAndMIdResultMap">
+    <select id="findDetailByTypeAndMaterialIdList" parameterType="com.weychain.erp.domain.DO.DepotItem" resultMap="DetailByTypeAndMIdResultMap">
         select dh.Number,concat(dh.SubType,dh.Type) as newType,
         case when type='入库' then ifnull(di.BasicNumber,0) when type='出库' then 0-di.BasicNumber else 0 end as b_num,
         date_format(dh.OperTime,'%Y-%m-%d %H:%i:%S') as oTime
@@ -114,7 +114,7 @@
     </select>
 
 
-    <select id="findStockNumByMaterialIdList" parameterType="com.weychain.erp.domain.example.DepotItemExample" resultMap="ResultAndMaterialMap">
+    <select id="findStockNumByMaterialIdList" parameterType="ccom.weychain.erp.domain.DO.DepotItem" resultMap="ResultAndMaterialMap">
         select di.*,m.Name mName,m.Model mModel from jsh_depotitem di
         inner join jsh_material m on di.MaterialId=m.Id  and ifnull(m.delete_Flag,'0') !='1'
         where 1=1
@@ -168,7 +168,7 @@
         and ifnull(dh.delete_Flag,'0') !='1'
     </select>
 
-    <select id="getDetailList" parameterType="com.weychain.erp.domain.example.DepotItemExample" resultMap="ResultWithInfoExMap">
+    <select id="getDetailList" parameterType="com.weychain.erp.domain.DO.DepotItem" resultMap="ResultWithInfoExMap">
         select di.*,m.Name MName,m.Model MModel,m.Unit MaterialUnit,m.Color MColor,m.Standard MStandard,m.Mfrs MMfrs,
         m.OtherField1 MOtherField1,m.OtherField2 MOtherField2,m.OtherField3 MOtherField3,
         dp1.name DepotName,dp2.name AnotherDepotName, u.id UnitId, u.UName
@@ -182,7 +182,7 @@
         order by di.id asc
     </select>
 
-    <select id="findByAll" parameterType="com.weychain.erp.domain.example.DepotItemExample" resultMap="ResultByMaterial">
+    <select id="findByAll" parameterType="com.weychain.erp.domain.DO.DepotItem" resultMap="ResultByMaterial">
         select m.id MId, m.Name MName, m.Model MModel, m.Unit MaterialUnit, m.Color MColor,
         m.PresetPriceOne, m.PriceStrategy, u.UName UName
         from jsh_depotitem di
@@ -459,7 +459,7 @@
 
 
 
-    <select id="findStockWarningCount" parameterType="com.weychain.erp.domain.example.DepotItemExample" resultMap="ResultStockWarningCount">
+    <select id="findStockWarningCount" parameterType="com.weychain.erp.domain.DO.DepotItem" resultMap="ResultStockWarningCount">
         SELECT
         m. NAME MaterialName,
         m.Model MaterialModel,

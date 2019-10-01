@@ -2,12 +2,10 @@ package com.weychain.erp.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.weychain.erp.domain.DO.ERP_Account;
-
-import java.util.List;
-
-import com.weychain.erp.domain.example.ERP_AccountExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 @Mapper
 public interface ERP_AccountMapper extends BaseMapper<ERP_Account> {
 

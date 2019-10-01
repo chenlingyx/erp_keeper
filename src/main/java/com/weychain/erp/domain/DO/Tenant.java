@@ -1,5 +1,6 @@
 package com.weychain.erp.domain.DO;
 
+<<<<<<< HEAD
 import java.util.Date;
 
 public class Tenant {
@@ -195,3 +196,26 @@ public class Tenant {
         this.createTime = createTime;
     }
 }
+=======
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+import java.util.Date;
+
+
+@TableName("jsh_tenant")
+@Data
+public class Tenant {
+
+    private Long id;
+
+    private Long tenantId;
+    private String loginName;
+
+    private Integer userNumLimit;
+
+    private Integer billsNumLimit;
+
+    private Date createTime;
+}
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6

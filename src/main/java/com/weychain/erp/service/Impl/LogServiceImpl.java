@@ -9,6 +9,11 @@ import com.weychain.erp.mapper.LogMapper;
 import com.weychain.erp.mapper.LogMapperEx;
 import com.weychain.erp.domain.VO.LogVo4List;
 import com.weychain.erp.exception.JshException;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 import com.weychain.erp.utils.Tools;
 
@@ -24,6 +29,10 @@ import static com.weychain.erp.utils.Tools.getLocalIp;
 
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 @Service
 public class LogServiceImpl implements com.weychain.erp.service.LogService {
@@ -226,4 +235,70 @@ public class LogServiceImpl implements com.weychain.erp.service.LogService {
 
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getLog(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getUserList(map);
+    }
+
+    @Override
+    public List<?> getUserList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String operation = StringUtil.getInfo(search, "operation");
+        Integer usernameID = StringUtil.parseInteger(StringUtil.getInfo(search, "usernameID"));
+        String clientIp = StringUtil.getInfo(search, "clientIp");
+        Integer status = StringUtil.parseInteger(StringUtil.getInfo(search, "status"));
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        String contentdetails = StringUtil.getInfo(search, "contentdetails");
+        String order = QueryUtils.order(map);
+        return select(operation, usernameID, clientIp, status, beginTime, endTime, contentdetails,
+                QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String operation = StringUtil.getInfo(search, "operation");
+        Integer usernameID = StringUtil.parseInteger(StringUtil.getInfo(search, "usernameID"));
+        String clientIp = StringUtil.getInfo(search, "clientIp");
+        Integer status = StringUtil.parseInteger(StringUtil.getInfo(search, "status"));
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        String contentdetails = StringUtil.getInfo(search, "contentdetails");
+        return countLog(operation, usernameID, clientIp, status, beginTime, endTime, contentdetails);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertLog(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateLog(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteLog(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteLog(ids);
+    }
+
+    @Override
+    public int checkIsNameExist(Long id, String name)throws Exception {
+        return 0;
+    }
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

@@ -113,6 +113,7 @@
 
 	<build>
 		<finalName>WeychainERP1.0</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -159,6 +160,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			 <plugin>
 				<groupId>org.mybatis.generator</groupId>
 				<artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -169,6 +171,7 @@
 					<overwrite>true</overwrite>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -178,7 +181,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>  
 		        <groupId>org.apache.maven.plugins</groupId>  
 		        <artifactId>maven-surefire-plugin</artifactId>  
@@ -186,6 +189,7 @@
 		        <configuration>  
 		          <skipTests>true</skipTests>  
 		        </configuration>  
+
 			</plugin>
 		</plugins>
 	</build>

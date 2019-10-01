@@ -10,7 +10,7 @@
         <result column="UName" jdbcType="VARCHAR" property="unitName" />
     </resultMap>
 
-    <select id="selectByConditionMaterial" parameterType="com.weychain.erp.domain.DO.MaterialExample" resultMap="ResultMapList">
+    <select id="selectByConditionMaterial" parameterType="com.weychain.erp.domain.DO.Material" resultMap="ResultMapList">
         select m.*,u.uname unitName, mc.name categoryName
         FROM jsh_material m
         left JOIN jsh_unit u on m.UnitId = u.id and ifnull(u.delete_Flag,'0') !='1'
@@ -58,14 +58,14 @@
         and ifnull(u.delete_Flag,'0') !='1'
     </select>
 
-    <select id="findById" parameterType="com.weychain.erp.domain.DO.MaterialExample" resultMap="ResultAndUnitMap">
+    <select id="findById" parameterType="com.weychain.erp.domain.DO.Material" resultMap="ResultAndUnitMap">
         select m.*,u.UName from jsh_material m
         left join jsh_unit u on m.UnitId=u.id and ifnull(u.delete_Flag,'0') !='1'
         where m.id = ${id}
         and ifnull(m.delete_Flag,'0') !='1'
     </select>
 
-    <select id="findBySelect" parameterType="com.weychain.erp.domain.DO.MaterialExample" resultMap="ResultAndUnitMap">
+    <select id="findBySelect" parameterType="ccom.weychain.erp.domain.DO.Material" resultMap="ResultAndUnitMap">
         select m.*,u.UName from jsh_material m
         left join jsh_unit u on m.UnitId=u.id and ifnull(u.delete_Flag,'0') !='1'
         where m.enabled=1
@@ -90,7 +90,7 @@
         where Id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="findByAll" parameterType="com.weychain.erp.domain.DO.MaterialExample" resultMap="ResultMapList">
+    <select id="findByAll" parameterType="com.weychain.erp.domain.DO.Material" resultMap="ResultMapList">
         select m.*,u.uname unitName, mc.name categoryName
         FROM jsh_material m
         left JOIN jsh_unit u on m.UnitId = u.id and ifnull(u.delete_Flag,'0') !='1'

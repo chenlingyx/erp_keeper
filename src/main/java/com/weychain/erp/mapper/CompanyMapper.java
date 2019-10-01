@@ -38,6 +38,5 @@ public interface CompanyMapper extends BaseMapper<Company> {
 
     int updateByPrimaryKeySelective(Company record);
 
-
     int updateByPrimaryKey(Company record);
 }

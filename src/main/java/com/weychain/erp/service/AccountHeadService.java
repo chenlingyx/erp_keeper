@@ -7,6 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 public interface AccountHeadService {
 
@@ -31,6 +35,25 @@ public interface AccountHeadService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     int batchDeleteAccountHead(String ids)throws Exception;
 
+<<<<<<< HEAD
+=======
+    Object selectOne(Long id) throws Exception;
+
+    List<?> select(Map<String, String> map)throws Exception;
+
+    List<?> getAccountHeadList(Map<String, String> map)throws Exception;
+
+    abstract Long counts(Map<String, String> map)throws Exception;
+
+    abstract int insert(String beanJson, HttpServletRequest request) throws Exception;
+
+    abstract int update(String beanJson, Long id)throws Exception;
+
+    abstract int delete(Long id)throws Exception;
+
+    abstract int batchDelete(String ids)throws Exception;
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
     int checkIsNameExist(Long id, String name)throws Exception;
 
     Long getMaxId()throws Exception;

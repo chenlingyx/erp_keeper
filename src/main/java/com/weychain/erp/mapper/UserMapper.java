@@ -1,6 +1,8 @@
 package com.weychain.erp.mapper;
 
+
 import com.weychain.erp.domain.DO.User;
+import com.weychain.erp.domain.example.UserExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,6 +39,7 @@ public interface UserMapper {
 
 
     int updateByPrimaryKeySelective(User record);
+
 
 
     int updateByPrimaryKey(User record);

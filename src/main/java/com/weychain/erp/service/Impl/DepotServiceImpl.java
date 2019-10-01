@@ -11,6 +11,11 @@ import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -199,6 +204,7 @@ public class DepotServiceImpl implements com.weychain.erp.service.DepotService {
         return list;
     }
 
+<<<<<<< HEAD
     @Override
     public List<DepotEx> getDepotList(Map<String, Object> parameterMap)throws Exception {
         List<DepotEx> list=null;
@@ -209,6 +215,10 @@ public class DepotServiceImpl implements com.weychain.erp.service.DepotService {
         }
         return list;
     }
+=======
+
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
     @Override
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteDepotByIds(String ids)throws Exception {
@@ -304,4 +314,56 @@ public class DepotServiceImpl implements com.weychain.erp.service.DepotService {
         }
         return result;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getDepot(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getDepotList(map);
+    }
+
+    @Override
+    public List<?> getDepotList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        String order = QueryUtils.order(map);
+        return select(name, type, remark, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        return countDepot(name, type, remark);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertDepot(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateDepot(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteDepot(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteDepot(ids);
+    }
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

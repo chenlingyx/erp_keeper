@@ -8,7 +8,7 @@
         <result column="AccountName" jdbcType="VARCHAR" property="accountname" />
     </resultMap>
 
-    <select id="selectByConditionAccountHead" parameterType="com.weychain.erp.domain.example.AccountHeadExample" resultMap="ResultMapEx">
+    <select id="selectByConditionAccountHead" parameterType="com.weychain.erp.domain.DO.AccountHead" resultMap="ResultMapEx">
         select ah.*, s.supplier OrganName, p.Name HandsPersonName, a.Name AccountName
         from jsh_accounthead ah
         left join jsh_supplier s on ah.OrganId=s.id and ifnull(s.delete_Flag,'0') !='1'
@@ -66,7 +66,7 @@
         and ifnull(delete_Flag,'0') !='1'
     </select>
 
-    <select id="getDetailByNumber" parameterType="com.weychain.erp.domain.example.AccountHeadExample" resultMap="ResultMapEx">
+    <select id="getDetailByNumber" parameterType="com.weychain.erp.domain.DO.AccountHead" resultMap="ResultMapEx">
         select ah.*, s.supplier OrganName, p.Name HandsPersonName, a.Name AccountName
         from jsh_accounthead ah
         left join jsh_supplier s on ah.OrganId=s.id and ifnull(s.delete_Flag,'0') !='1'

@@ -10,6 +10,11 @@ import com.weychain.erp.mapper.RoleMapperEx;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -23,6 +28,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 @Service
 public class RoleServiceImpl implements com.weychain.erp.service.RoleService {
@@ -175,4 +184,59 @@ public class RoleServiceImpl implements com.weychain.erp.service.RoleService {
         }
         return result;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getRole(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getRoleList(map);
+    }
+
+    @Override
+    public List<?> getRoleList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String order = QueryUtils.order(map);
+        String filter = QueryUtils.filter(map);
+        return select(name, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        return countRole(name);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertRole(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateRole(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteRole(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteRole(ids);
+    }
+
+    @Override
+    public int checkIsNameExist(Long id, String name)throws Exception {
+        return 0;
+    }
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

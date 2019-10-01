@@ -7,7 +7,7 @@
         <result column="InOutItemName" jdbcType="VARCHAR" property="inOutItemName" />
     </resultMap>
 
-    <select id="selectByConditionAccountItem" parameterType="com.weychain.erp.domain.example.AccountItemExample" resultMap="com.weychain.erp.mapper.AccountItemMapper.BaseResultMap">
+    <select id="selectByConditionAccountItem" parameterType="com.weychain.erp.domain.DO.AccountItem" resultMap="com.weychain.erp.mapper.AccountItemMapper.BaseResultMap">
         select *
         FROM jsh_accountitem
         where 1=1
@@ -43,6 +43,7 @@
     </select>
 
     <select id="getDetailList" parameterType="com.weychain.erp.domain.DO.AccountItem" resultMap="ResultWithInfoExMap">
+
         select ai.*,a.Name AccountName,ioi.Name InOutItemName
         from jsh_accountitem ai left join jsh_account a on ai.AccountId=a.id and ifnull(a.delete_Flag,'0') !='1'
         left join jsh_inoutitem ioi on ai.InOutItemId = ioi.id and ifnull(ioi.delete_Flag,'0') !='1'

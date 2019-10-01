@@ -26,6 +26,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 /**
  * Description
@@ -259,4 +263,51 @@ public class OrganizationServiceImpl implements com.weychain.erp.service.Organiz
         }
         return result;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getOrganization(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> parameterMap)throws Exception {
+        return getOrganizationList(parameterMap);
+    }
+    @Override
+    public List<?> getOrganizationList(Map<String, String> map)throws Exception {
+        return null;
+    }
+    @Override
+    public Long counts(Map<String, String> parameterMap)throws Exception {
+        return null;
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertOrganization(beanJson,request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateOrganization(beanJson,id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteOrganization(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteOrganization(ids);
+    }
+
+    @Override
+    public int checkIsNameExist(Long id, String name)throws Exception {
+        return 0;
+    }
+    
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

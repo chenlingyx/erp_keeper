@@ -15,9 +15,13 @@ import com.weychain.erp.domain.VO.TreeNodeEx;
 import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.*;
+<<<<<<< HEAD
 import com.weychain.erp.utils.ExceptionCodeConstants;
 import com.weychain.erp.utils.StringUtil;
 import com.weychain.erp.utils.Tools;
+=======
+import com.weychain.erp.utils.*;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +51,11 @@ public class UserServiceImpl implements com.weychain.erp.service.UserService {
     @Resource
     private LogService logService;
     @Resource
+<<<<<<< HEAD
     private UserService userService;
     @Resource
+=======
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
     private TenantService tenantService;
     @Resource
     private UserBusinessService userBusinessService;
@@ -304,6 +311,7 @@ public class UserServiceImpl implements com.weychain.erp.service.UserService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<UserEx> getUserList(Map<String, Object> parameterMap) throws Exception{
         List<UserEx> list=null;
         try{
@@ -314,6 +322,8 @@ public class UserServiceImpl implements com.weychain.erp.service.UserService {
         return list;
     }
     @Override
+=======
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public void addUserAndOrgUserRel(UserEx ue) throws Exception{
         if(BusinessConstants.DEFAULT_MANAGER.equals(ue.getLoginame())) {
@@ -413,7 +423,11 @@ public class UserServiceImpl implements com.weychain.erp.service.UserService {
             User user = new User();
             user.setId(ue.getId());
             user.setTenantId(ue.getId());
+<<<<<<< HEAD
             userService.updateUserTenant(user);
+=======
+            updateUserTenant(user);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
             //新增用户与角色的关系
             JSONObject ubObj = new JSONObject();
             ubObj.put("type", "UserRole");
@@ -636,4 +650,56 @@ public class UserServiceImpl implements com.weychain.erp.service.UserService {
         }
         return list;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getUser(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getUserList(map);
+    }
+
+    @Override
+    public List<User> getUserList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String userName = StringUtil.getInfo(search, "userName");
+        String loginName = StringUtil.getInfo(search, "loginName");
+        String order = QueryUtils.order(map);
+        String filter = QueryUtils.filter(map);
+        return select(userName, loginName, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String userName = StringUtil.getInfo(search, "userName");
+        String loginName = StringUtil.getInfo(search, "loginName");
+        return countUser(userName, loginName);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertUser(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateUser(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteUser(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteUser(ids);
+    }
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

@@ -41,6 +41,5 @@ public interface OrgaUserRelMapper {
 
     int updateByPrimaryKeySelective(OrgaUserRel record);
 
-
     int updateByPrimaryKey(OrgaUserRel record);
 }

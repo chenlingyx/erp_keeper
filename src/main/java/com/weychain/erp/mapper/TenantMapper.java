@@ -1,11 +1,15 @@
 package com.weychain.erp.mapper;
 
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.weychain.erp.domain.DO.Tenant;
+import com.weychain.erp.domain.example.TenantExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 @Mapper
+
 public interface TenantMapper {
 
     int countByExample(Tenant example);
@@ -40,3 +44,4 @@ public interface TenantMapper {
 
     int updateByPrimaryKey(Tenant record);
 }
+

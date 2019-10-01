@@ -10,6 +10,11 @@ import com.weychain.erp.exception.BusinessRunTimeException;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -24,6 +29,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 /**
  * Description
@@ -540,4 +549,55 @@ public class SerialNumberServiceImpl implements com.weychain.erp.service.SerialN
         return result;
 
     }
+<<<<<<< HEAD
+=======
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getSerialNumber(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getSerialNumberList(map);
+    }
+
+    @Override
+    public List<?> getSerialNumberList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String serialNumber = StringUtil.getInfo(search, "serialNumber");
+        String materialName = StringUtil.getInfo(search, "materialName");
+        return select(serialNumber,materialName, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String serialNumber = StringUtil.getInfo(search, "serialNumber");
+        String materialName = StringUtil.getInfo(search, "materialName");
+        return countSerialNumber(serialNumber, materialName);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertSerialNumber(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateSerialNumber(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteSerialNumber(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteSerialNumber(ids);
+    }
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

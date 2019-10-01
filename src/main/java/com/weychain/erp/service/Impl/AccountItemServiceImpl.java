@@ -2,6 +2,10 @@ package com.weychain.erp.service.Impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+<<<<<<< HEAD
+=======
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.domain.DO.AccountItem;
 import com.weychain.erp.domain.DO.User;
@@ -13,6 +17,11 @@ import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.AccountItemService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -28,6 +37,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 @Service
 public class AccountItemServiceImpl implements AccountItemService {
@@ -48,7 +61,11 @@ public class AccountItemServiceImpl implements AccountItemService {
     public AccountItem getAccountItem(long id)throws Exception {
         AccountItem result=null;
         try{
+<<<<<<< HEAD
             result=accountItemMapper.selectByPrimaryKey(id);
+=======
+            result=accountItemMapper.selectById(id);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
         }catch(Exception e){
             JshException.readFail(logger, e);
         }
@@ -56,11 +73,21 @@ public class AccountItemServiceImpl implements AccountItemService {
     }
     @Override
     public List<AccountItem> getAccountItem()throws Exception {
+<<<<<<< HEAD
         AccountItemExample example = new AccountItemExample();
         example.createCriteria().andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
         List<AccountItem> list=null;
         try{
             list=accountItemMapper.selectByExample(example);
+=======
+//        AccountItemExample example = new AccountItemExample();
+        QueryWrapper<AccountItem> wrapper = new QueryWrapper<>();
+        wrapper.lambda().ne(AccountItem::getDeleteFlag,BusinessConstants.DELETE_FLAG_DELETED);
+//        example.createCriteria().andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
+        List<AccountItem> list=null;
+        try{
+            list=accountItemMapper.selectList(wrapper);
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
         }catch(Exception e){
             JshException.readFail(logger, e);
         }
@@ -279,4 +306,58 @@ public class AccountItemServiceImpl implements AccountItemService {
         }
         return result;
     }
+<<<<<<< HEAD
+=======
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getAccountItem(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getAccountItemList(map);
+    }
+
+    @Override
+    public List<?> getAccountItemList(Map<String, String> map) throws Exception{
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        String order = QueryUtils.order(map);
+        return select(name, type, remark, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        Integer type = StringUtil.parseInteger(StringUtil.getInfo(search, "type"));
+        String remark = StringUtil.getInfo(search, "remark");
+        return countAccountItem(name, type, remark);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertAccountItem(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateAccountItem(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteAccountItem(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteAccountItem(ids);
+    }
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

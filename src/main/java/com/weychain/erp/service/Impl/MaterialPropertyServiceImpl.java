@@ -10,6 +10,11 @@ import com.weychain.erp.mapper.MaterialPropertyMapperEx;
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -23,6 +28,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 @Service
 public class MaterialPropertyServiceImpl implements com.weychain.erp.service.MaterialPropertyService {
@@ -160,4 +169,53 @@ public class MaterialPropertyServiceImpl implements com.weychain.erp.service.Mat
         return result;
 
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getMaterialProperty(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getMaterialPropertyList(map);
+    }
+
+    @Override
+    public List<?> getMaterialPropertyList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        String order = QueryUtils.order(map);
+        return select(name, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String name = StringUtil.getInfo(search, "name");
+        return countMaterialProperty(name);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertMaterialProperty(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateMaterialProperty(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteMaterialProperty(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteMaterialProperty(ids);
+    }
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weychain.erp.mapper.SupplierMapperEx">
     <select id="selectByConditionSupplier" parameterType="com.weychain.erp.domain.DO.Supplier" resultMap="com.weychain.erp.mapper.SupplierMapper.BaseResultMap">
+
         select *
         FROM jsh_supplier
         where 1=1
@@ -50,6 +51,7 @@
     </select>
 
     <select id="findByAll" parameterType="com.weychain.erp.domain.DO.Supplier" resultMap="com.weychain.erp.mapper.SupplierMapper.BaseResultMap">
+
         select *
         FROM jsh_supplier
         where 1=1

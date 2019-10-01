@@ -16,6 +16,11 @@ import com.weychain.erp.service.DepotHeadService;
 import com.weychain.erp.service.LogService;
 import com.weychain.erp.service.UserService;
 import com.weychain.erp.utils.BaseResponseInfo;
+<<<<<<< HEAD
+=======
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.utils.StringUtil;
 
 import org.slf4j.Logger;
@@ -433,4 +438,63 @@ public class SupplierServiceImpl implements com.weychain.erp.service.SupplierSer
         return deleteTotal;
 
     }
+<<<<<<< HEAD
+=======
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getSupplier(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getSupplierList(map);
+    }
+
+    @Override
+    public List<?> getSupplierList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String supplier = StringUtil.getInfo(search, "supplier");
+        String type = StringUtil.getInfo(search, "type");
+        String phonenum = StringUtil.getInfo(search, "phonenum");
+        String telephone = StringUtil.getInfo(search, "telephone");
+        String description = StringUtil.getInfo(search, "description");
+        String order = QueryUtils.order(map);
+        return select(supplier, type, phonenum, telephone, description, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String supplier = StringUtil.getInfo(search, "supplier");
+        String type = StringUtil.getInfo(search, "type");
+        String phonenum = StringUtil.getInfo(search, "phonenum");
+        String telephone = StringUtil.getInfo(search, "telephone");
+        String description = StringUtil.getInfo(search, "description");
+        return countSupplier(supplier, type, phonenum, telephone, description);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertSupplier(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateSupplier(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteSupplier(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteSupplier(ids);
+    }
+
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

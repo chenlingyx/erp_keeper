@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+
 import com.weychain.erp.domain.DO.Material;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,6 +37,8 @@ public interface MaterialMapper {
 
 
     int updateByPrimaryKeySelective(Material record);
+
+
 
 
     int updateByPrimaryKey(Material record);

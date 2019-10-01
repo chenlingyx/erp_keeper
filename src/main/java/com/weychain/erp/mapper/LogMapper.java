@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+
 import com.weychain.erp.domain.DO.Log;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -46,6 +47,7 @@ public interface LogMapper {
 
 
     int updateByPrimaryKeySelective(Log record);
+
 
 
 

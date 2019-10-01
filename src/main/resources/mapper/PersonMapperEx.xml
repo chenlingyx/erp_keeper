@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weychain.erp.mapper.PersonMapperEx">
     <select id="selectByConditionPerson" parameterType="com.weychain.erp.domain.DO.Person" resultMap="com.weychain.erp.mapper.PersonMapper.BaseResultMap">
+
         select *
         FROM jsh_person
         where 1=1

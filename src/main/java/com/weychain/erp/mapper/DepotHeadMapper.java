@@ -37,6 +37,5 @@ public interface DepotHeadMapper {
 
     int updateByPrimaryKeySelective(DepotHead record);
 
-
     int updateByPrimaryKey(DepotHead record);
 }

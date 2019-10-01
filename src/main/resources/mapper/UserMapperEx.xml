@@ -8,6 +8,7 @@
         <result column="orgaUserRelId" jdbcType="BIGINT" property="orgaUserRelId" />
     </resultMap>
     <select id="selectByConditionUser" parameterType="com.weychain.erp.domain.DO.User" resultMap="com.weychain.erp.mapper.UserMapper.BaseResultMap">
+
         select *
         FROM jsh_user
         where 1=1

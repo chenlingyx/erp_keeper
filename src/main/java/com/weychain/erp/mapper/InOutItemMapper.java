@@ -1,5 +1,6 @@
 package com.weychain.erp.mapper;
 
+
 import com.weychain.erp.domain.DO.InOutItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -34,6 +35,7 @@ public interface InOutItemMapper {
 
 
     int updateByPrimaryKeySelective(InOutItem record);
+
 
 
     int updateByPrimaryKey(InOutItem record);

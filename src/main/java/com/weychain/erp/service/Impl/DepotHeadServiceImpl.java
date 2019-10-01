@@ -1,22 +1,41 @@
 package com.weychain.erp.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
+<<<<<<< HEAD
+=======
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.constants.BusinessConstants;
 import com.weychain.erp.domain.DO.DepotHead;
 import com.weychain.erp.domain.DO.DepotItem;
 import com.weychain.erp.domain.DO.User;
+<<<<<<< HEAD
 import com.weychain.erp.domain.example.DepotHeadExample;
 import com.weychain.erp.mapper.DepotHeadMapper;
 import com.weychain.erp.mapper.DepotHeadMapperEx;
 import com.weychain.erp.mapper.DepotItemMapperEx;
+=======
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import com.weychain.erp.domain.VO.DepotHeadVo4InDetail;
 import com.weychain.erp.domain.VO.DepotHeadVo4InOutMCount;
 import com.weychain.erp.domain.VO.DepotHeadVo4List;
 import com.weychain.erp.domain.VO.DepotHeadVo4StatementAccount;
+<<<<<<< HEAD
 import com.weychain.erp.exception.JshException;
 import com.weychain.erp.service.*;
 import com.weychain.erp.utils.StringUtil;
 
+=======
+import com.weychain.erp.domain.example.DepotHeadExample;
+import com.weychain.erp.exception.JshException;
+import com.weychain.erp.mapper.DepotHeadMapper;
+import com.weychain.erp.mapper.DepotHeadMapperEx;
+import com.weychain.erp.mapper.DepotItemMapperEx;
+import com.weychain.erp.service.*;
+import com.weychain.erp.utils.Constants;
+import com.weychain.erp.utils.QueryUtils;
+import com.weychain.erp.utils.StringUtil;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,21 +45,37 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+<<<<<<< HEAD
 
 import static com.weychain.erp.utils.Tools.getCenternTime;
 
+=======
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
 
 @Service
 public class DepotHeadServiceImpl implements com.weychain.erp.service.DepotHeadService {
+=======
+import java.util.Map;
+
+import static com.weychain.erp.utils.Tools.getCenternTime;
+
+@Service
+public class DepotHeadServiceImpl extends ServiceImpl<DepotHeadMapper,DepotHead> implements com.weychain.erp.service.DepotHeadService {
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
     private Logger logger = LoggerFactory.getLogger(DepotHeadServiceImpl.class);
 
     @Resource
     private DepotHeadMapper depotHeadMapper;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
     @Resource
     private DepotHeadMapperEx depotHeadMapperEx;
     @Resource
@@ -660,6 +695,71 @@ public class DepotHeadServiceImpl implements com.weychain.erp.service.DepotHeadS
 
     @Override
     public BigDecimal getBuyAndSaleStatistics(String type, String subType, Integer hasSupplier, String beginTime, String endTime) {
+<<<<<<< HEAD
         return depotHeadMapperEx.getBuyAndSaleStatistics(type, subType, hasSupplier, beginTime, endTime);
     }
+=======
+        return BigDecimal.valueOf(depotHeadMapperEx.getBuyAndSaleStatistics(type, subType, hasSupplier, beginTime, endTime));
+//        return BigDecimal.valueOf(depotHeadMapperEx.getBuyAndSaleStatistics());
+    }
+
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getDepotHead(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> map)throws Exception {
+        return getDepotHeadList(map);
+    }
+
+    @Override
+    public List<?> getDepotHeadList(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String type = StringUtil.getInfo(search, "type");
+        String subType = StringUtil.getInfo(search, "subType");
+        String number = StringUtil.getInfo(search, "number");
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        String materialParam = StringUtil.getInfo(search, "materialParam");
+        String depotIds = StringUtil.getInfo(search, "depotIds");
+        return select(type, subType, number, beginTime, endTime, materialParam, depotIds, QueryUtils.offset(map), QueryUtils.rows(map));
+    }
+
+    @Override
+    public Long counts(Map<String, String> map)throws Exception {
+        String search = map.get(Constants.SEARCH);
+        String type = StringUtil.getInfo(search, "type");
+        String subType = StringUtil.getInfo(search, "subType");
+        String number = StringUtil.getInfo(search, "number");
+        String beginTime = StringUtil.getInfo(search, "beginTime");
+        String endTime = StringUtil.getInfo(search, "endTime");
+        String materialParam = StringUtil.getInfo(search, "materialParam");
+        String depotIds = StringUtil.getInfo(search, "depotIds");
+        return countDepotHead(type, subType, number, beginTime, endTime, materialParam, depotIds);
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request) throws Exception{
+        return insertDepotHead(beanJson, request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateDepotHead(beanJson, id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteDepotHead(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteDepotHead(ids);
+    }
+
+
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

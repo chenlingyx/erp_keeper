@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weychain.erp.mapper.InOutItemMapperEx">
     <select id="selectByConditionInOutItem" parameterType="com.weychain.erp.domain.DO.InOutItem" resultMap="com.weychain.erp.mapper.InOutItemMapper.BaseResultMap">
+
         select *
         FROM jsh_inoutitem
         where 1=1

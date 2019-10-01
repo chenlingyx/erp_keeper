@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 FILE_PATH=/home/jshERP2.0
 SERVER_NAME=jshERP
+=======
+FILE_PATH=/home/erp_keeper
+SERVER_NAME=erp_keeper
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 readonly APP_HOME=${FILE_PATH:-$(dirname $(cd `dirname $0`; pwd))}
 
 #readonly JAVA_HOME=""
@@ -9,7 +14,11 @@ readonly LIB_HOME="$APP_HOME/lib"
 readonly LOGS_HOME="$APP_HOME/logs"
 
 readonly PID_FILE="$LOGS_HOME/application.pid"
+<<<<<<< HEAD
 readonly APP_MAIN_CLASS="jshERP2.0.jar"
+=======
+readonly APP_MAIN_CLASS="erp_keeper.jar"
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 readonly LOG_CONFIG="$CONFIG_HOME/logback-spring.xml"
 
 readonly JAVA_RUN="-Dlogs.home=$LOGS_HOME -Dlogging.config=$LOG_CONFIG -Dspring.config.location=file:$CONFIG_HOME -Dspring.pid.file=$PID_FILE -Dspring.pid.fail-on-write-error=true"
@@ -47,7 +56,11 @@ fi
 function install(){
 
   if [[ ! -n $FILE_PATH ]];then
+<<<<<<< HEAD
     sed -i "s#FILE_PATH=/home/jshERP2.0#FILE_PATH=$APP_HOME#" $APP_HOME/$0
+=======
+    sed -i "s#FILE_PATH=/home/erp_keeper#FILE_PATH=$APP_HOME#" $APP_HOME/$0
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
     if [[ -e /usr/sbin/$SERVER_NAME || -L /usr/sbin/$SERVER_NAME ]];then
 

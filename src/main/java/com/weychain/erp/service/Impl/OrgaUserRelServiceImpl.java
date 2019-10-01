@@ -21,6 +21,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 
 /**
  * Description
@@ -168,4 +172,50 @@ public class OrgaUserRelServiceImpl implements com.weychain.erp.service.OrgaUser
         }
         return null;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Object selectOne(Long id) throws Exception {
+        return getOrgaUserRel(id);
+    }
+
+    @Override
+    public List<?> select(Map<String, String> parameterMap)throws Exception {
+        return getOrgaUserRelList(parameterMap);
+    }
+    @Override
+    public List<?> getOrgaUserRelList(Map<String, String> map)throws Exception {
+        return null;
+    }
+    @Override
+    public Long counts(Map<String, String> parameterMap)throws Exception {
+        return null;
+    }
+
+    @Override
+    public int insert(String beanJson, HttpServletRequest request)throws Exception {
+        return insertOrgaUserRel(beanJson,request);
+    }
+
+    @Override
+    public int update(String beanJson, Long id)throws Exception {
+        return updateOrgaUserRel(beanJson,id);
+    }
+
+    @Override
+    public int delete(Long id)throws Exception {
+        return deleteOrgaUserRel(id);
+    }
+
+    @Override
+    public int batchDelete(String ids)throws Exception {
+        return batchDeleteOrgaUserRel(ids);
+    }
+
+    @Override
+    public int checkIsNameExist(Long id, String name)throws Exception {
+        return 0;
+    }
+>>>>>>> d55d0fe9e143a7b7fe4f5ca36e71a433c102f9b6
 }

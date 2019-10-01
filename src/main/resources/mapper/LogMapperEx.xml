@@ -6,6 +6,7 @@
     </resultMap>
 
     <select id="selectByConditionLog" parameterType="com.weychain.erp.domain.DO.Log" resultMap="ResultExMap">
+
         select l.*,u.username userName
         FROM jsh_log l
         left join jsh_user u on l.userID = u.id and ifnull(u.status,'0') not in('1','2')
